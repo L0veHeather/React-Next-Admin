@@ -20,7 +20,7 @@ docker-compose up -d
 This will:
 - Build the Docker image (if not already built)
 - Start the container in detached mode
-- Map port 8080 to your host machine
+- Map port 8081 to your host machine
 
 ### View Logs
 
@@ -54,10 +54,10 @@ docker build -t react-next-admin .
 
 ### Run the Container
 
-Run the following command to start the container on port 8080:
+Run the following command to start the container on port 8081:
 
 ```bash
-docker run -d -p 8080:8080 --name react-next-admin react-next-admin
+docker run -d -p 8081:8081 --name react-next-admin react-next-admin
 ```
 
 ### View Logs
@@ -79,7 +79,7 @@ docker rm react-next-admin
 
 Open your browser and navigate to:
 
-**[http://localhost:8080](http://localhost:8080)**
+**[http://localhost:8081](http://localhost:8081)**
 
 ---
 
