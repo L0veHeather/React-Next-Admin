@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 
-interface PropsParams {
-  locale:string
+export interface PropsParams {
+  locale: string
 }
 
-export interface Props  {
+export interface Props {
   children: ReactNode
   params: Partial<PropsParams>
 }

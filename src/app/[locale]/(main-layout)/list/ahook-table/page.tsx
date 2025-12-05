@@ -21,7 +21,7 @@ interface Result {
 const getTableData = async ({ current, pageSize }: {
   current: number, pageSize: number
 }): Promise<Result> => {
-  const res = await Apis.getTableList({
+  const res: any = await Apis.getTableList({
     results: 55,
     page: current,
     size: pageSize,

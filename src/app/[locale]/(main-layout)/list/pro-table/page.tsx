@@ -36,7 +36,7 @@ const getTableData = async (params: {
   pageSize?: number;
   current?: number;
 }): Promise<RequestData<TableListItem>> => {
-  const res = await Apis.getTableList({
+  const res: any = await Apis.getTableList({
     results: 55,
     page: params.current,
     size: params.pageSize,

@@ -12,7 +12,7 @@ export default function Welcome() {
   const event = useEvent();
   useMount(() => event.onEvent(login, e => console.log(e)));
   useEffect(() => {
-    Apis.getUsers().then(res => {
+    Apis.getUsers().then((res: any) => {
       console.log(res);
     });
   });

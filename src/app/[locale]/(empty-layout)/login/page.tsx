@@ -8,7 +8,7 @@ import { useRouter } from '@/lib/language';
 import useAccessStore from '@/store/useAccessStore';
 import { sleep } from 'ahooks/es/utils/testingHelpers';
 import { useTranslations } from 'next-intl';
-import { Props } from '@/types/Layout';
+
 import { staticRouter } from '@/static/staticRouter';
 import { ChangeLanguage } from '@/components';
 import { login } from '@/static/emits';
@@ -36,7 +36,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    Apis.getUsers().then(res => {
+    Apis.getUsers().then((res: any) => {
       console.log(res);
     });
   });
@@ -44,7 +44,7 @@ export default function Login() {
   return (
     <ProConfigProvider hashed={false}>
       <div style={{ backgroundColor: token.colorBgContainer, height: '100vh' }}
-           className="bg-[url('/bg.jpg')] bg-cover">
+        className="bg-[url('/bg.jpg')] bg-cover">
         <LoginForm
           onFinish={onSubmit}
           title="React Next Admin"

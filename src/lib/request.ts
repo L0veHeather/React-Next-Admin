@@ -1,11 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
-import { G, requestCreator } from '@siyuan0215/easier-axios-dsl';
+import { init } from '@siyuan0215/easier-axios-dsl';
 
 const TIMEOUT = {
   DEFAULT: 3 * 60000,
   UPLOADING: 5 * 60000,
 };
-export const request = requestCreator({
+
+const { requestInstance, generatorAPIS } = init({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: TIMEOUT.DEFAULT,
   withCredentials: true,
@@ -37,4 +38,5 @@ export const request = requestCreator({
   ],
 });
 
-export const generatorAPIS = <T extends {}>(apiConfig: T) => G<T>(request, apiConfig);
+export const request = requestInstance;
+export { generatorAPIS };
