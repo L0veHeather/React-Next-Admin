@@ -1,8 +1,19 @@
 # Rebuild the source code only when needed
 FROM node:20-alpine AS builder
 WORKDIR /app
+
+# Copy package files first for better caching
+COPY package.json package-lock.json* pnpm-lock.yaml* ./
+
+# Install pnpm and dependencies
+RUN corepack enable pnpm && \
+    pnpm install --frozen-lockfile || pnpm install
+
+# Copy source code
 COPY . .
-RUN npm install -g pnpm && pnpm install && pnpm build
+
+# Build the application
+RUN pnpm build
 
 # Production image, copy all the files and run next
 FROM node:20-alpine AS runner
@@ -13,8 +24,7 @@ ENV NODE_ENV production
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
-# You only need to copy next.config.js if you are NOT using the default configuration
-# COPY --from=builder /app/next.config.js ./
+# Copy necessary files from builder
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
@@ -25,10 +35,5 @@ USER nextjs
 EXPOSE 8081
 
 ENV PORT 8081
-
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry.
-# ENV NEXT_TELEMETRY_DISABLED 1
 
 CMD ["node_modules/.bin/next", "start"]
